@@ -357,16 +357,6 @@ function addOptionLinks() {
   let optionMenuLi = optionMenu.getElementsByTagName("li");
   let fullOptionList = document.getElementById("fullOptionList");   
   fullOptionList.style.display = "";
-  let i = 0;
-  while (i < 14) {
-    optionMenuLi[0].remove();
-    i++;
-  }
-  i = 0;
-  while (i < 4) {
-    optionMenu.children[0].remove();
-    i++;
-  }
   optionMenuLi = fullOptionList.getElementsByTagName("li");
   for (i = 0; i < optionMenuLi.length; i++) {
     optionMenuLi[i].getElementsByTagName("a")[0].addEventListener("click", function() {
