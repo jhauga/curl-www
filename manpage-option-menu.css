@@ -1,4 +1,4 @@
-/* table of contents items */
+/* option menu styling */
 .sideStay ul {
   list-style: none;
 }
@@ -14,9 +14,9 @@
 
 .sideStayTopLeft {
   cursor: pointer;
-  top: 1.7em;
-  left: 20.5em;
-  /*padding: 5px 55px;*/
+  top: 0;
+  right: 0;
+  left: unset;
   border: 2px solid white;
   font-size: 50%;
   width: 3em;
@@ -31,12 +31,11 @@
 .sideStayLeft {
   top: -10px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  /* padding: 10px; */
   padding-top: 10px;
   margin-top: 10px;
   font-size: 16px;
   max-width: 18%;
-  overflow-x: scroll;
+  z-index: 1;
 }
 
 .sideStayLeft a {
@@ -72,7 +71,6 @@
 
 .sideStayLeft ul {
   max-height: 800px;
-  /*max-width: 300px;*/
   max-width: 150px;
 	 width: 150px;
   overflow-y: scroll;
@@ -90,30 +88,91 @@ button {
   font-size: 60%;
 }
 
+/* Start media queries - max-width. */
+@media screen and (max-width: 1400px) {
+  div.menu {
+    padding-left: 30px;
+  }
+  div.menu#activeManMenu {
+    padding-left: 60px;
+    font-size: 22px;
+  }
+  div.manpage#activeManDiv {
+    max-width: 80%;
+    margin-left: 20%;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  div.menu {
+    font-size: 22px;
+    padding-left: 20px;
+  }
+  div.menu#activeManMenu {
+    padding-left: 90px;
+  }
+  div.manpage#activeManDiv {
+    max-width: 70%;
+    margin-left: 25%;
+  }
+  div.manpage#activeManDiv pre {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }  
+  div.sideStayLeft button {
+    max-height: 3em;
+  }    
+}
+
+@media screen and (max-width: 992px) {
+  div.menu div.dropdown {
+    display: inline-block;
+    position: relative;
+    max-width: 18%;
+    width: auto;
+    padding: 0px;    
+  }
+  div.menu#activeManMenu {
+    padding-left: 120px;
+    font-size: 20px;
+  }      
+  div.manpage pre {
+    word-wrap:break-word;
+    white-space: pre-wrap;
+  }  
+  div.sideStayLeft button {
+    max-height: 2.5em;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  div.menu#activeManMenu {
+    padding-left: 130px;
+    font-size: 20px;
+  }  
+}
+
+/* Breakpoint where option menu no longer displayed. */
+@media screen and (max-width: 768px) {
+  div.manpage pre {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  div.sideStayLeft#manpage-option-menu {
+    display: none; 
+  }  
+}
+
+/* Start media queries - min-width. */
 @media screen and (min-width: 640px) {
   div.manpage {
     display: inline-block;
     position: relative;
     margin-left: 1px;
-    max-width: 80%;
+    max-width: 100%;
     float: right;
     right: 0px;
     min-width: 500px;
     width: auto;
-  }
-  
-  div.manpage, div.manpage pre {
-    word-wrap: break-word;
-    white-space: pre-wrap;
- }
-}
-
-@media screen and (max-width: 640px) {
- div#manpage-option-menu {
-   display: none; 
- }
- div.manpage, div.manpage pre {
-   word-wrap: break-word;
-   white-space: pre-wrap;
- }
+  } 
 }
