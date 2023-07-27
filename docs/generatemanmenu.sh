@@ -11,7 +11,6 @@
 # Or however the curl source code is called when building.
 curl -h all > options.txt
 
-# begin vodoo
 sed -i -E 's/ (-.*)/\1/g' options.txt
 sed -i -E 's/    (--.*)/\1/g' options.txt
 sed -i -E 's/(-.*, --.* ) (.)*/\1/g' options.txt
@@ -30,7 +29,7 @@ sed -i -E 's/(--.*) \w*/\1/' options.txt
 sed -i -E 's/(--.*) \w*/\1/' options.txt
 sed -i -E "s|([a-z])/[a-zA-Z]*|\1|" options.txt
 sed -i ':a;N;$!ba;s/ \n//' options.txt
-# end vodoo
+sed -i "s/--location,//" options.txt
 
 # Above is best I'm going to do. Probably best
 # if you guys replace with your magic.
