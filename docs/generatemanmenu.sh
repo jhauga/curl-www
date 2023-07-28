@@ -11,25 +11,10 @@
 # Or however the curl source code is called when building.
 curl -h all > options.txt
 
-sed -i -E 's/ (-.*)/\1/g' options.txt
-sed -i -E 's/    (--.*)/\1/g' options.txt
-sed -i -E 's/(-.*, --.* ) (.)*/\1/g' options.txt
-sed -i -E 's/(--.* ) (\<.*)*/\1/g' options.txt
-sed -i -E 's/(--.* )*(<)(.*)/\1/g' options.txt
-sed -i -E 's/(--.*) *<.*/\1/g' options.txt
-sed -i -E 's/(.*)  /\1/g' options.txt
-sed -i -E 's/(--.*)(.*[[:space:]])/\1/' options.txt
-sed -i -E 's/(--.*)([[:space:]].[[:space:]] .)/\1/' options.txt
-sed -i -E 's/  //g' options.txt
-sed -i -E 's/(--.*) (.*\w .*\w) */\1/' options.txt
-sed -i "s/Usage: curl \[options...\]//" options.txt
-sed -i -E 's/(--.*) .*\w* .* */\1/' options.txt
-sed -i -E 's/(--.*) \w*/\1/' options.txt
-sed -i -E 's/(--.*) \w*/\1/' options.txt
-sed -i -E 's/(--.*) \w*/\1/' options.txt
-sed -i -E "s|([a-z])/[a-zA-Z]*|\1|" options.txt
-sed -i ':a;N;$!ba;s/ \n//' options.txt
-sed -i "s/--location,//" options.txt
+# Extract only the option text.
+sed -i '1d' options.txt  # Remove first line.
+sed -i -E 's/^[[:space:]]*([^[:space:]]*-)/\1/' options.txt # Remove starting space.
+sed -i -E 's/^((-.*, --[^[:space:]]+)|(^--[^[:space:]]+)).*/\1/g' options.txt # Remove text after option.
 
 # Above is best I'm going to do. Probably best
 # if you guys replace with your magic.
@@ -38,6 +23,7 @@ sed -i "s/--location,//" options.txt
 # so used html file. Below works, but whatever method you
 # guys think is best to make final menu element.
 
+# Opening html to manpage-option-menu.html
 cat _manpage-option-menu-parent-tags.html > _manpage-option-menu.html
 
 # Loop through option.txt and make "<li><a href="#">..</a></li>
@@ -49,4 +35,5 @@ done < options.txt >> _manpage-option-menu.html
 cat _manpage-option-menu-close-tags.html >> _manpage-option-menu.html
 
 # Clean out files no longer needed.
-rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html
+#rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html
+
