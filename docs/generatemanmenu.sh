@@ -35,5 +35,4 @@ done < options.txt >> _manpage-option-menu.html
 cat _manpage-option-menu-close-tags.html >> _manpage-option-menu.html
 
 # Clean out files no longer needed.
-#rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html
-
+rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html
