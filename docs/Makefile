@@ -250,8 +250,6 @@ libs.html: _libs.html $(MAINPARTS)
 	$(ACTION)
 
 manpage.html: _manpage.html $(MAINPARTS) mandump.gen $(ROOT)/manpage.t
-	./generatemanmenu.sh && mv _manpage-option-menu.html ..
-	rm generatemanmenu.sh
 	$(ACTION)
 
 curl.1: ../cvssource/docs/cmdline-opts/*.d
