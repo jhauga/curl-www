@@ -17,6 +17,9 @@ if test ! -d trurl/trurl-www; then
   git clone https://github.com/curl/trurl.git trurl/trurl-www
 fi
 
+"${code}"/src/curl -h all > options.txt
+generatemanmenu && rm generatemanmenu
+
 touch ca/cacert.pem
 touch ca/pemlist.gen
 
