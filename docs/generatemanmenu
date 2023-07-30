@@ -9,7 +9,8 @@
 # request - hey - it's a starting point.
 
 # Or however the curl source code is called when building.
-curl -h all > options.txt
+# Calling in bootstrap.sh
+# curl -h all > options.txt
 
 # Extract only the option text.
 sed -i '1d' options.txt  # Remove first line.
