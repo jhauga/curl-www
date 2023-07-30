@@ -18,7 +18,7 @@ if test ! -d trurl/trurl-www; then
 fi
 
 "${code}"/src/curl -h all > options.txt
-./generatemanmenu && rm generatemanmenu
+perl generatemanmenu.pl && rm generatemanmenu.pl
 
 touch ca/cacert.pem
 touch ca/pemlist.gen
