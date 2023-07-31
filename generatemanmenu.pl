@@ -8,43 +8,43 @@
 # vodoo, but seeing as this is a feature 
 # request - hey - it's a starting point.
 
-# Or however the curl source code is called when building.
+# Output options to file, remove first line, and make page for option menu.
+my $curlPath = @ARGV[0];                   # store path to curl in variable
+`$curlPath/src/curl -h all > options.txt`; # output options to text file
+`sed -i 1d options.txt`;                   # remove first line in options.txt
+`touch _manpage-option-menu.html`;         # make page to hold option menu elements
 
-`/usr/local/lib/curl/src/curl -h all > options.txt`;
-`sed -i 1d options.txt`; # Remove first line.
-
-my $_options = "options.txt"; # store name in variable
-my $_tempFile = "tmpoptions.txt";
-
-open TEMP, ">", $_tempFile or die $!; close TEMP;
-open TEMP, ">>", $_tempFile or die $!;
-
-open (my $fh, "<:encoding(UTF-8)", $_options)
-  or die "Error opening file '$options' $!";
-
-# Extract only the option text.
-# Loop through option.txt and make "<li><a href="#">..</a></li>
-while (my $row = <$fh>) {
-  chomp $row;
-  $row =~ s/^[[:space:]]*([^[:space:]]*-)/\1/; # Remove starting space.
-  $row =~ s/^((-.*, --[^[:space:]]+)|(^--[^[:space:]]+)).*/\1/g; # Remove text after option.
-  print TEMP "<li><a href=\"#\">$row</a></li>\n";
-}
-
-# Above is best I'm going to do. Probably best
-# if you guys replace with your magic.
-
-close TEMP; close FILE;
+# Store files in variable
+my $_options = "options.txt"; 
+my $_optionMenuHTML = "_manpage-option-menu.html"; 
 
 # Dont' know the best way to store large text elements
 # so used html file. Below works, but whatever method you
 # guys think is best to make final menu element.
 
-# Opening html to manpage-option-menu.html
+# Output opening html tags to _manpage-option-menu.html
 `cat _manpage-option-menu-parent-tags.html > _manpage-option-menu.html`;
-# Output options generated with above loop.
-`cat tmpoptions.txt >> _manpage-option-menu.html`;
-# Close _manpage-option-menu.html with closing text element
+
+# Open _manpage-option-menu.html to write to.
+open MAN_OPTIONS, ">>", $_optionMenuHTML or die $!;
+
+# Open options.txt to extract option names and output to _manpage-option-menu.html
+open option_text, "<:encoding(UTF-8)", $_options or die $!;  
+
+# Extract only the option text.
+# Loop through option.txt and make "<li><a href="#">..</a></li>
+while (my $row = <option_text>) {
+  chomp $row;
+  $row =~ s/^[[:space:]]*([^[:space:]]*-)/\1/;                   # remove starting space
+  $row =~ s/^((-.*, --[^[:space:]]+)|(^--[^[:space:]]+)).*/\1/g; # remove text after option
+  print MAN_OPTIONS "<li><a href=\"#\">$row</a></li>\n";         # append to _manpage-option-menu.html
+}
+
+# Close files, add closing tags, and remove files no longer needed.
+close TEMP; close option_text;
+
+# Output closing tags with _manpage-option-menu.html.
 `cat _manpage-option-menu-close-tags.html >> _manpage-option-menu.html`;
+
 # Clean out files no longer needed.
-`rm options.txt tmpoptions.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html`;
+`rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html`;
