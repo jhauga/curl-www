@@ -17,8 +17,8 @@ if test ! -d trurl/trurl-www; then
   git clone https://github.com/curl/trurl.git trurl/trurl-www
 fi
 
-"${code}"/src/curl -h all > options.txt
-perl generatemanmenu.pl && rm generatemanmenu.pl
+# Make manpage-option-menu.html and delete generatemanmenu.pl as no longer needed.
+perl generatemanmenu.pl "${code}" && rm generatemanmenu.pl
 
 touch ca/cacert.pem
 touch ca/pemlist.gen
