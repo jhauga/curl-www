@@ -46,5 +46,5 @@ close TEMP; close option_text;
 # Output closing tags with _manpage-option-menu.html.
 `cat _manpage-option-menu-close-tags.html >> _manpage-option-menu.html`;
 
-# Clean out files no longer needed.
-`rm options.txt _manpage-option-menu-parent-tags.html _manpage-option-menu-close-tags.html`;
+# Remove option file longer needed.
+`rm options.txt`;
