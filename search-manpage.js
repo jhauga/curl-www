@@ -23,19 +23,16 @@
 *  in this Software without prior written authorization of the copyright holder.
 **********************************************************************************/
 
-// on/off switch for top button, menu, mouseover, and button status respectively
-var setScroll = 0; var scrollOver100 = 0; var mousedOver = 0; var onOffButton = 0;
+// on/off switch for menu scroll breakpoint, mouseover, and button status respectively
+var scrollOver100 = 0; var mousedOver = 0; var onOffButton = 0;
 
 // Option menu DOM elements
-var toTop = document.getElementById("toTop"); // to top button
-var totopButton = document.getElementById("to-top-Button"); // to top button parent
 var searchButton = document.getElementById("searchButton"); // show option dropdown
-var searchButtonData = searchButton.dataset; // switch for button on mouseover
 var manpageOptionMenu = document.getElementById("manpage-option-menu"); // top of DOM
 var manpageOptionMenuData = manpageOptionMenu.dataset; // switch to put menu to side
 
-// Show to top button.
-function showTop() {    
+// Show in full or put to side top button.
+function showTopButtonInFull() {
   // Add scroll event to menu and top button.
   document.addEventListener("scroll", function() {
     // switch for scrolled down over 100
@@ -50,30 +47,25 @@ function showTop() {
       onOffButton == 0
      ) {       
      manpageOptionMenu.dataset.onSide = 1;
-     if ( searchButton.className.indexOf("searchButtonToSide") > -1 &&
-          manpageOptionMenuData.toSide == 1 ) {
+      if ( searchButton.className.indexOf("searchButtonToSide") > -1 &&
+           manpageOptionMenuData.toSide == 1 ) {
         // put menu to side and done          
         searchButton.dataset.toSide = 1;
-     }
-    }
-    else if (document.documentElement.scrollTop > 500) {       
-      // show to top button on right
-      toTop.style.display = "inline-block";       
+      }
     } else {
-     // hide to top button
-     toTop.style.display = "none"; // hide to top       
-     searchButton.dataset.toSide = 0; // button default
-
-     // set menu to defaults
-     if (document.documentElement.scrollTop < 100) {
-       manpageOptionMenu.style.left = ""; // now use css styles
-       manpageOptionMenu.dataset.onSide = 0;
-     }
+      // hide top button       
+      searchButton.dataset.toSide = 0; // button default
+     
+      // set menu to defaults
+      if (document.documentElement.scrollTop < 100) {
+        manpageOptionMenu.style.left = ""; // now use css styles
+        manpageOptionMenu.dataset.onSide = 0;
+      }
     }
   });  
 }
 
-// Put to top and show option buttons to side when menu not in view
+// Show option buttons to side when menu not in view
 // adding mouseover function to activate.
 function buttonToSide(status, onoff) {
   // if on exit    
@@ -83,7 +75,7 @@ function buttonToSide(status, onoff) {
     ) { mousedOver = 1; return; }
   
   // is moused over or not. exit on mouse out  
-  if ( status == 1 ) { 
+  if ( status == 1 ) {
     mousedOver = 1;
   } else { 
     mousedOver = 0;
@@ -110,7 +102,7 @@ function searchOptions(txt) {
   let optionMenu = document.getElementById("optionMenu");
   let optionMenuLi = optionMenu.getElementsByTagName("li");
   // show or hide options when searching.
-  for (i = 0; i < optionMenuLi.length; i++) {
+  for (let i = 0; i < optionMenuLi.length; i++) {
     let curLI = optionMenuLi[i].innerText;
     if (curLI.indexOf(txt) > -1) { // if match show
       optionMenuLi[i].style.display = "";
@@ -120,7 +112,7 @@ function searchOptions(txt) {
   }
 }
 
-// Show and hide table of contents
+// Show and hide option list items.
 function toggleSearchButton(showhide, onoff) {
   // responsive elements
   let manpageDiv = document.getElementsByClassName("manpage")[0];
@@ -137,11 +129,10 @@ function toggleSearchButton(showhide, onoff) {
     onoff.style.background = "white";
     onoff.style.color = "black";
     onoff.innerHTML = onoff.innerHTML.replace("Show", "Hide");
-    // 2. show the option menu and reposition to top button when on
+    // 2. show the option menu.
     onoff.className = "";
-    totopButton.className = totopButton.className.replace(" inactive", "");
-    onoff.parentElement.className = onoff
-     .parentElement.className.replace(" inactive", "");
+    onoff.parentElement.className = 
+     onoff.parentElement.className.replace(" inactive", "");
     // 3. responsive margins if screen < 770 add else remove
     if (!manpageDiv.id) { manpageDiv.id = "activeManDiv"; }
     if (!manpageMenu.id) { manpageMenu.id = "activeManMenu"; }
@@ -155,10 +146,8 @@ function toggleSearchButton(showhide, onoff) {
     onoff.style.background = "";
     onoff.style.color = "";
     onoff.innerHTML = onoff.innerHTML.replace("Hide", "Show");
-    // 2. set to side when menu out of view, styling parrent with css
-    //    and reposition top button.
+    // 2. set to side when menu out of view, styling parrent with css.
     onoff.className = "searchButtonToSide";
-    totopButton.className += " inactive";
     onoff.parentElement.className += " inactive";
     // 3. responsive margins if screen < 770 add else remove
     if (manpageDiv.id) { manpageDiv.removeAttribute("id"); }
@@ -175,43 +164,53 @@ function addOptionLinks() {
   let optionMenuLi = optionMenu.getElementsByTagName("li");
   let fullOptionList = document.getElementById("fullOptionList");
   
+  // Define var for function use.
   var lastDec, hValue;
-  var outPeriod = function() { // remove any periods    
-    if (hValue.match(/\w\d[.]/g)) {
-      lastDec = hValue.lastIndexOf(".");
-      hValue = hValue.substr(0, lastDec) + hValue.substr(Number(lastDec + 1));
-     }
-  };
   
+  // Remove any periods from anchor link.  
+  var outPeriod = function() {    
+    let hasPeriod = 1; // period still in text
+    while (hasPeriod == 1) { // remove periods from text
+      if (hValue.lastIndexOf(".") > -1) {
+        lastDec = hValue.lastIndexOf("."); // index of last period
+        // Extract to last period, skip and extract rest of text.
+        hValue = hValue.substr(0, lastDec) + 
+         hValue.substr(Number(lastDec + 1));
+       } else {
+        hasPeriod = 0; // periods have been removed
+       }
+     }    
+    this.href = hValue; // redefine attribute
+  };
+  // Always Show the ootion menu list.
   fullOptionList.style.display = "";
+  
+  // Select all list items in option menu
   optionMenuLi = fullOptionList.getElementsByTagName("li");
   
-  for (i = 0; i < optionMenuLi.length; i++) {
-    optionMenuLi[i].getElementsByTagName("a")[0].addEventListener("click", function() {
-      if (this.innerHTML.indexOf(",") > -1) {        
+  for (let i = 0; i < optionMenuLi.length; i++) {
+    // Add anchor link whenever list item is clicked.
+    optionMenuLi[i].getElementsByTagName("a")[0]
+    .addEventListener("click", function() {
+      if (this.innerHTML.indexOf(",") > -1) {
+        // Set the attribute value for anchor link with duplicate options.
         this.href = "#" + this.innerHTML.substr(0, this.innerHTML.indexOf(","));
-        hValue = this.href;        
+        // Duplicate value in variable to check period.
+        hValue = this.href;
       } else {
+        // Set the attribute value for anchor link.
         this.href = "#" + this.innerHTML;
+        // Duplicate value in variable to check period.
         hValue = this.href;              
       }
-      outPeriod();
-      
-      if (hValue.indexOf("#-#") > -1 || hValue.indexOf("#-:") > -1) {
-        if (hValue.indexOf("#-#") > -1) {
-          hValue = hValue.replace("#-#", "#-hash");
-        }
-        else {
-          let skip;
-        }
-        this.href = hValue;
-      } else {
-        this.href = hValue;
+      // Remove periods if has period in text
+      if (hValue.match(/\w\d[.]/g)) {
+        outPeriod();
       }
     });
   }
 }
-showTop();
+showTopButtonInFull();
 addOptionLinks();
 
 
@@ -248,7 +247,7 @@ function testTheOptionAnchors() {
   var theOptionListItems = theUnorderdOptionList.getElementsByTagName("li");  
   var optionAnchors = [];
   // Get option names
-  for (i = 0; i < theOptionListItems.length; i++) {
+  for (let i = 0; i < theOptionListItems.length; i++) {
     let curItem = theOptionListItems[i].getElementsByTagName("a")[0];
     optionAnchors.push(curItem.innerHTML);
   }

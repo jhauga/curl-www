@@ -1,8 +1,6 @@
 /* 
-This additional css page was included as to build a local test.
-Since manpage.css is linked via url this page was added.
-In the repo jhauga/curl-manpage showing the final results the 
-css used is the full manpage.css that is in pull request.
+This css is used on manpage.html to style the
+option menu.
 */
 
 /* Apply style the the entire option menu. */
@@ -51,50 +49,6 @@ div.sideStayLeft div ul li {
   right: 2em;  
   margin: auto 0px;
   padding: 2px 0px;  
-}
-
-/* Animate to top button. */
-div.sideStayTopLeft {
-  transition-timing-function: ease;
-  transition-duration: 0.5s;
-}
-
-/* Style to top as button and other constant styles. */
-div#to-top-Button.sideStay.sideStayLeft.inactive div.sideStayTopLeft,
-div#to-top-Button.sideStay.sideStayLeft div.sideStayTopLeft {  
-  position: fixed;
-  min-width: revert;
-  width: 3em;
-  height: 2em;
-  top: 0;
-  font-size: 50%;  
-  margin-top: 10px;
-  padding-top: 10px;
-  padding:5px;  
-  color:white;
-  background: #0a3754;        
-  box-shadow: none;
-  border: 2px solid white;
-  cursor: pointer;
-}
-
-/* Style to top button when menu not pressed. */
-div.sideStay.sideStayLeft.inactive div.sideStayTopLeft {  
-  right: 0;
-  left: 98%;
-}
-
-/* Style to top button when pressed. */
-div.sideStay.sideStayLeft div.sideStayTopLeft {
-  right: revert;
-  left: 15em;
-  z-index: 2;
-}
-
-/* Sytle to top button text. */
-div.sideStayTopLeft span {
-  display: inline-block;
-  padding: .4em 1.2em;
 }
 
 /* Style the anchor links for options. */
@@ -165,7 +119,7 @@ div#manpage-option-menu[data-on-side="0"] {
    on lower screen heights. Close gap with curl logo.  */
 @media screen and (min-height: 800px) {
   /* Style when button pressed on. */
-  div.sideStay.sideStayLeft#manpage-option-menu:after {
+  div#manpage-option-menu.sideStay.sideStayLeft:after {
     content: "_";
     display: inline-block;
     postion: relative;
@@ -182,7 +136,7 @@ div#manpage-option-menu[data-on-side="0"] {
     color: white;
   }
   /* Style when button pressed off. */
-  div.sideStay.sideStayLeft.inactive#manpage-option-menu:after {
+  div#manpage-option-menu.sideStay.sideStayLeft.inactive:after {
     content: none;
   }
 }
@@ -192,11 +146,11 @@ div#manpage-option-menu[data-on-side="0"] {
   div.menu {
     padding-left: 30px;    
   }
-  div.menu#activeManMenu {
+  div#activeManMenu.menu {
     font-size: 22px; 
     padding-left: 60px; 
   }
-  div.manpage#activeManDiv {
+  div#activeManDiv.manpage {
     max-width: 80%;
     margin-left: 20%;
   }
@@ -209,16 +163,16 @@ div#manpage-option-menu[data-on-side="0"] {
      padding-left: 20px;
   }
   /* Re-style doc menu when option menu active. */
-  div.menu#activeManMenu {
+  div#activeManMenu.menu {
      padding-left: 90px;
   }
   /* Re-style page content when option menu active. */
-  div.manpage#activeManDiv {
+  div#activeManDiv.manpage {
     max-width: 70%;    
   }
   /* Re-style page pre tags when option menu active. 
      Contain pre tags in content so not off screen. */
-  div.manpage#activeManDiv pre {
+  div#activeManDiv.manpage pre {
     word-wrap: break-word;
     white-space: pre-wrap;
   }  
@@ -239,7 +193,7 @@ div#manpage-option-menu[data-on-side="0"] {
     padding: 0px;    
   }
   /* Re-style page doc menu. */
-  div.menu#activeManMenu {
+  div#activeManMenu.menu {
      font-size: 20px; 
      padding-left: 120px;
   }      
@@ -256,41 +210,55 @@ div#manpage-option-menu[data-on-side="0"] {
 
 /* Re-style the doc menu at below 769px. */
 @media screen and (max-width: 769px) {
-  div.menu#activeManMenu {
+  div#activeManMenu.menu {
     font-size: 20px;
     padding-left: 130px;    
   }  
 }
 
 /* Re-style page content pre tag, doc menu, and option menu below 768px. */
+/* The below commented out styles are suggested edits. */
 @media screen and (max-width: 768px) {
   /* Contain pre tags in content so not off screen. */
+  /*  
   div.manpage pre {
     word-wrap: break-word;
     white-space: pre-wrap;
   }
+  */  
+  
   /* Re-style menu to be more responsive. */
+  /*  
   div.menu {
     margin: 0px;
     padding: 0px;
   }
+  */  
+  
   /* Re-style doc menu a tags. */
+  /*  
   div.menu a {    
     font-size: 14pt;
     padding: 0px 5px;    
   }
+  */  
+  
   /* Re-style doc menu last a tag decreasing font size */
+  /*  
   div.menu div:last-of-type a:first-of-type {
     font-size: 12pt;
   }
+  */
+  
   /* Breakpoint where option menu no longer displayed. */
-  div.sideStayLeft#manpage-option-menu {
+  div#manpage-option-menu.sideStayLeft {
     display: none; 
   }  
 }
 
 /* Start media queries - min-width. */
 /* Re-style page contents to be more responsive. */
+/*
 @media screen and (min-width: 640px) {
   div.manpage {
     display: inline-block;
@@ -303,3 +271,4 @@ div#manpage-option-menu[data-on-side="0"] {
     margin-left: 1px;
   } 
 }
+*/
