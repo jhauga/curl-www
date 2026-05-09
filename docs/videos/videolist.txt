@@ -1426,5 +1426,5 @@ THUMBSIZE width="250" height="141"
 DATE 2026-04-28
 DURATION 59 minutes
 WHO Daniel Stenberg
-DESC This talk is a reality check and status update on AI tooling for security and Open Source maintenance.
+DESC This talk is a reality check and status update on AI tooling for security and Open Source maintenance, with experiences from the curl project.
 ENDOFVIDEO
