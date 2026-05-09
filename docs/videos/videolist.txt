@@ -1417,3 +1417,14 @@ THUMBSIZE width="250" height="141"
 URL https://youtu.be/DESGZXXKajY
 WHO Daniel Stenberg
 ENDOFVIDEO
+
+VIDEO Open Source AI reality
+EVENT foss-north 2026
+URL https://youtu.be/VQ0kLuST800
+THUMB ai-reality.jpg
+THUMBSIZE width="250" height="141"
+DATE 2026-04-28
+DURATION 59 minutes
+WHO Daniel Stenberg
+DESC This talk is a reality check and status update on AI tooling for security and Open Source maintenance.
+ENDOFVIDEO
