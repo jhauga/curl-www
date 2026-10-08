@@ -61,7 +61,7 @@ sub scancve {
             $intro_in = $1;
             $intro_in =~ s/https:.*\///; # leave only the commit hash
         }
-        elsif(/^- Not affected versions.* >= (.*)/) {
+        elsif(/^- Not affected versions.* >= ([0-9.]+)/) {
             # support a range of fixed versions
             push @fixed, $1;
         }
